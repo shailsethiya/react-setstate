@@ -1,39 +1,29 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { useState } from 'react'
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      students: [{
-        id: 123,
-        name: 'Ram',
-        marks: 90
-      }, {
-        id: 445,
-        name: 'John',
-        marks: 75
-      }]
-    }
-  }
+const App = () => {
+  const[students, setStudents] = useState([{
+    id: 123,
+    name: 'Ram',
+    marks: 90
+  }, {
+    id: 445,
+    name: 'John',
+    marks: 75
+  }]);
+
+  const handleSubmit = () => {
+    setStudents(students.map(
+      obj => (obj.id === 445 ? Object.assign(obj, { marks: 45 }) : obj)
+    ))
+  }; 
 
 
-handleSubmit(){
-    this.setState(prevState => ({  
-    students: prevState.students.map(
-    obj => (obj.id === 445 ? Object.assign(obj, { marks: 45 }) : obj)
-  )}))
-}; 
-
-  render() {
-    const students= this.state.students;
-    return (
-      <div className="App">
-        {JSON.stringify(students)}
-        <button type="submit" onClick={(bind) => this.handleSubmit(bind)}>set student</button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      {JSON.stringify(students)}
+      <button type="submit" onClick={handleSubmit}>set student</button>
+    </div>
+  )
 }
 
-export default App;
+export default App
